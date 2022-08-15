@@ -21,6 +21,10 @@ export class UsersController {
             res.status(422).send(err.message);
         }
     }
+    @Get(':id')
+    findOne(@Param('id') id:string){
+        return this.usersService.findOne(id);
+    }
     @Put(':id')
     async updateOne(@Body() user:Iuser,@Param('id') id:string,@Res() res){
         let result = await this.usersService.updateOne(id,user);  
@@ -30,7 +34,7 @@ export class UsersController {
     async deleteOne(@Param('id') id:string,@Res() res){
         let result = await this.usersService.deleteOne(id);
         let msg = result.deletedCount > 0 ? "Suppresion de l'utilsteur avec succès !" : "Erreur de suppression de l'utilisateur !";
-        let statut = result.deletedCount > 0 ? true : false;
+        let statut = Boolean(result.deletedCount);
         res.send({ statut , msg });
     }
 }
