@@ -10,9 +10,7 @@ export class AuthController {
     @Post('register')
     async register(@Body() user: Iuser) : Promise<Session>
     {
-        console.log('in');
         const result = this.authService.register(user);
-        console.log(result);
         return result;
     }
     @Post('login')

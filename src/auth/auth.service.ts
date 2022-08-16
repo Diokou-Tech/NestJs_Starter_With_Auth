@@ -4,15 +4,17 @@ import { UsersService } from 'src/users/users.service';
 import * as jwt from "jsonwebtoken";
 import * as bcrypt from "bcrypt";
 import {Session} from './dto/session.type';
+import {MailService} from "../mail/mail.service";
 
 @Injectable()
 export class AuthService {
-    constructor(private readonly userService: UsersService){}
+    constructor(private readonly userService: UsersService, private readonly mailService:MailService){}
 
     async register(data:Iuser){
         try{
+            //send emaim to user
+            this.mailService.registerEmail(data);
             const user =  await this.userService.insertOne(data);
-            console.log(user);
             const session = this.createToken(user);
             return session;
         }catch(error){
@@ -38,7 +40,6 @@ export class AuthService {
     }
     async verifToken(token:string){
         const tokenValid = await jwt.verify(token,process.env.KEY_SECRET_TOKEN);
-        console.log(tokenValid);
     }
     async createToken(login) : Promise<Session> {
     let user = {...login.toObject()}

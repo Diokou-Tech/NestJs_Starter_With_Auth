@@ -7,14 +7,18 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { RolesModule } from './roles/roles.module';
+import { MailModule } from './mail/mail.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({}),
+    ConfigModule.forRoot({
+      isGlobal: true
+    }),
     MongooseModule.forRoot(process.env.DB_URI_WEB),
     UsersModule,
     AuthModule,
-    RolesModule
+    RolesModule,
+    MailModule
   ],
   controllers: [AppController],
   providers: [AppService],

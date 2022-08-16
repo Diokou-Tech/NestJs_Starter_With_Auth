@@ -20,7 +20,6 @@ export class UsersService {
     async insertOne(user : Iuser){
         //get salt
         const hashPassword = await bcrypt.hash(user.password,10);
-        console.log(hashPassword);
         user.password = hashPassword;
         return this.model.create(user);
     }
