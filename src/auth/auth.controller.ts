@@ -1,4 +1,4 @@
-import {Body, Controller, Post, Res} from '@nestjs/common';
+import {Body, Controller, Param, Post, Res} from '@nestjs/common';
 import { Iuser } from 'src/users/db/user.interface';
 import { AuthService } from './auth.service';
 import { Session } from './dto/session.type';

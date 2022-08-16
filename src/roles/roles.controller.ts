@@ -1,8 +1,9 @@
-import {Body, Controller, Get, Post, Res,Param} from '@nestjs/common';
+import {Body, Controller, Get, Post, Res, Param, UseGuards} from '@nestjs/common';
 import {Irole} from "./db/role.interface";
 import {RolesService} from "./roles.service";
-import {Document} from "mongoose";
+import {AuthGuard} from "../auth/auth.guard";
 
+@UseGuards(AuthGuard)
 @Controller('roles')
 export class RolesController {
     constructor(private serviceRole: RolesService) {}

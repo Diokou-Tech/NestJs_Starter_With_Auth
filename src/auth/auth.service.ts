@@ -5,6 +5,7 @@ import * as jwt from "jsonwebtoken";
 import * as bcrypt from "bcrypt";
 import {Session} from './dto/session.type';
 import {MailService} from "../mail/mail.service";
+import {rejects} from "assert";
 
 @Injectable()
 export class AuthService {
@@ -27,7 +28,6 @@ export class AuthService {
         console.log(user);
         if(user){
             let isMatch = await bcrypt.compare(login.password,user.password);
-            console.log({isMatch});
             if(isMatch && user.active){
                 const session = await this.createToken(user);
                 return session;
@@ -38,8 +38,20 @@ export class AuthService {
             throw new Error('Adresse electronique introuvable !');
         }
     }
-    async verifToken(token:string){
-        const tokenValid = await jwt.verify(token,process.env.KEY_SECRET_TOKEN);
+    async verifToken(token:string):  Promise<Boolean | Iuser> {
+        /*const tokenValid = await jwt.verify(token,process.env.KEY_SECRET_TOKEN);
+        return tokenValid;*/
+        return new Promise<Boolean | Iuser>((resolve,reject) =>{
+            //verify token is valid
+            jwt.verify(token,process.env.KEY_SECRET_TOKEN,(err,data) => {
+                if(err){
+                    resolve(false);
+                }else{
+                    console.log(data);
+                    resolve(data);
+                }
+            })
+        });
     }
     async createToken(login) : Promise<Session> {
     let user = {...login.toObject()}
