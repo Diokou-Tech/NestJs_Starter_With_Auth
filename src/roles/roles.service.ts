@@ -15,7 +15,7 @@ export class RolesService {
         return this.model.find();
     }
     findOne(id:string){
-        return this.model.find({"_id" : id});
+        return this.model.findOne({"_id" : id});
     }
     deleteOne(id: string){
         return this.model.deleteOne({"_id": id});

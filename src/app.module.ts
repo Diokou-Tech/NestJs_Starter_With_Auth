@@ -7,11 +7,19 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { RolesModule } from './roles/roles.module';
+import {GraphQLModule} from "@nestjs/graphql";
+import {ApolloDriver, ApolloDriverConfig} from "@nestjs/apollo";
 
 @Module({
   imports: [
     ConfigModule.forRoot({}),
     MongooseModule.forRoot(process.env.DB_URI_WEB),
+    GraphQLModule.forRoot<ApolloDriverConfig>({
+      autoSchemaFile: "schema.gql",
+      driver: ApolloDriver,
+      playground: process.env.APP_MODE == 'dev',
+      sortSchema: true
+      }),
     UsersModule,
     AuthModule,
     RolesModule
