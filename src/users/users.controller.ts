@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Res } from '@nestjs/common';
+import {Body, Controller, Delete, Get, Param, Post, Put, Res} from '@nestjs/common';
 import { Iuser } from './db/user.interface';
 import { UsersService } from './users.service';
 
@@ -27,8 +27,13 @@ export class UsersController {
     }
     @Put(':id')
     async updateOne(@Body() user:Iuser,@Param('id') id:string,@Res() res){
-        let result = await this.usersService.updateOne(id,user);  
-        res.send(result);
+        try{
+            let result = await this.usersService.updateOne(id,user);
+            res.send(result);
+        }catch(err){
+            res.status(422).send(err.message);
+        }
+
     }
     @Delete(':id')
     async deleteOne(@Param('id') id:string,@Res() res){
