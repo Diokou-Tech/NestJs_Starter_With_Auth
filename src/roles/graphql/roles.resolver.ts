@@ -1,7 +1,7 @@
 import {Args, Query, Resolver} from "@nestjs/graphql";
-import {RolesService} from "./roles.service";
-import {Irole} from "./db/role.interface";
-import {RoleModel} from "./graphql/role.model";
+import {RolesService} from "../roles.service";
+import {Irole} from "../db/role.interface";
+import {RoleModel} from "./role.model";
 
 @Resolver()
 export class RolesResolver{

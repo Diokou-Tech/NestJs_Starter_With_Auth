@@ -15,19 +15,26 @@ export class UsersService {
         return this.model.findOne({"email" : email});
     }
     findOne(id:string){
-        return this.model.find({"_id": id});
+        return this.model.findOne({"_id": id});
     }
     async insertOne(user : Iuser){
-        //get salt
+        //crypt password_text
         const hashPassword = await bcrypt.hash(user.password,10);
-        console.log(hashPassword);
         user.password = hashPassword;
-        return this.model.create(user);
+        try{
+            const result = this.model.create(user);
+            return result;
+        }catch (e) {
+            throw  new Error(e.message);
+        }
     }
     deleteOne(id: string){
+        console.log("in delete");
         return this.model.deleteOne({'_id': id});
     }
-    updateOne(id: string, user: Iuser){
-        return this.model.updateOne({'_id': id},{$set : user});
+    async updateOne(id: string, user: Iuser){
+        const result = await this.model.updateOne({'_id': id},{$set : user});
+        console.log(result);
+        return result;
     }
 }

@@ -16,7 +16,7 @@ export class AuthService {
             const session = this.createToken(user);
             return session;
         }catch(error){
-            return error;
+            throw new Error(error.message);
         }
     }
    async login(login : Iuser) : Promise<Session>{

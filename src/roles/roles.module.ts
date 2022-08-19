@@ -4,7 +4,7 @@ import { RolesController } from './roles.controller';
 import {MongooseModule} from "@nestjs/mongoose";
 import {roleModelName} from "./db/role.model-name";
 import {roleSchema} from "./db/role.schema";
-import {RolesResolver} from "./roles.resolver";
+import {RolesResolver} from "./graphql/roles.resolver";
 
 @Module({
   imports: [
