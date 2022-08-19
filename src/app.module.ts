@@ -14,7 +14,9 @@ import { ClassesModule } from './classes/classes.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({}),
+    ConfigModule.forRoot({
+      isGlobal : true
+    }),
     MongooseModule.forRoot(process.env.DB_URI_WEB),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       autoSchemaFile: "schema.gql",
