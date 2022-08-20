@@ -4,7 +4,10 @@ import {StudentsService} from "../students.service";
 import {studentInput} from "./student.input";
 import {Istudent} from "../db/student.interface";
 import {MessageModel} from "../../common/graphql/message.model";
+import {paginatedInput} from "../../common/graphql/paginated.input";
+import {UseGuards} from "@nestjs/common";
 
+//@UseGuards(AuthGuard)
 @Resolver()
 export class StudentsResolver {
     constructor(private readonly studentsService: StudentsService) {}
@@ -16,9 +19,11 @@ export class StudentsResolver {
         return result;
     }
     @Query(returns => [studentModel])
-    async findStudents()
+    async findStudents(
+        @Args({name:"paginated", type:()=> paginatedInput, nullable:true}) paginated:paginatedInput
+    )
     {
-        const result= await this.studentsService.findAll();
+        const result= await this.studentsService.findAll(paginated);
         return result;
     }
     @Query(returns => studentModel)

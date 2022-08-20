@@ -34,7 +34,7 @@ type Query {
   findClasse(id: String!): classesModel!
   findClasses: [classesModel!]!
   findStudent(id: String!): studentModel!
-  findStudents: [studentModel!]!
+  findStudents(paginated: paginatedInput): [studentModel!]!
 }
 
 type RoleModel {
@@ -72,6 +72,11 @@ type classesModel {
 input loginInput {
   email: String!
   password: String!
+}
+
+input paginatedInput {
+  limit: Int
+  skip: Int
 }
 
 input registerInput {
