@@ -3,22 +3,22 @@ import { sexeType } from "src/common/mongoose/sexe.enum";
 
 @ObjectType()
 export class studentModel{
-    @Field(type => ID)
+    @Field(type => ID,{nullable:true})
     id: string;
     @Field({nullable:true})
     matricule: string;
-    @Field()
+    @Field({nullable:true})
     name: string;
-    @Field()
+    @Field({nullable:true})
     lastname: string;
-    @Field()
+    @Field({nullable:true})
     date_naiss: Date;
-    @Field()
+    @Field({nullable:true})
     sexe: string
-    @Field()
+    @Field({nullable:true})
     classe_id: string
-    @Field()
+    @Field({nullable:true})
     createdAt: Date
-    @Field()
+    @Field({nullable:true})
     updatedAt: Date
 }

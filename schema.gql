@@ -74,9 +74,21 @@ input loginInput {
   password: String!
 }
 
+"""sort oder type !"""
+enum orderByDirection {
+  ASC
+  DSC
+}
+
+input orderbyInput {
+  direction: orderByDirection
+  property: String
+}
+
 input paginatedInput {
   limit: Int
   skip: Int
+  sortBy: orderbyInput
 }
 
 input registerInput {
@@ -97,15 +109,15 @@ input studentInput {
 }
 
 type studentModel {
-  classe_id: String!
-  createdAt: DateTime!
-  date_naiss: DateTime!
-  id: ID!
-  lastname: String!
+  classe_id: String
+  createdAt: DateTime
+  date_naiss: DateTime
+  id: ID
+  lastname: String
   matricule: String
-  name: String!
-  sexe: String!
-  updatedAt: DateTime!
+  name: String
+  sexe: String
+  updatedAt: DateTime
 }
 
 type userModel {

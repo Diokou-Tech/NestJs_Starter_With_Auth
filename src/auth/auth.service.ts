@@ -26,9 +26,13 @@ export class AuthService {
         if(user){
             let isMatch = await bcrypt.compare(login.password,user.password);
             console.log({isMatch});
-            if(isMatch && user.active){
-                const session = await this.createToken(user);
-                return session;
+            if(isMatch){
+                if(user.active){
+                    const session = await this.createToken(user);
+                    return session;
+                }else{
+                    throw new Error('Compte desactivé : Contacter l\'administrateur');
+                }
             }else{
                 throw new Error('Identiants incorrectes ou compte désactivé ')
             }

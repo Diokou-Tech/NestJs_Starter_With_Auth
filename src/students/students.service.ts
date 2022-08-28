@@ -4,6 +4,7 @@ import { Model } from "mongoose";
 import { InjectModel } from '@nestjs/mongoose';
 import {Istudent} from "./db/student.interface";
 import {paginatedInput} from "../common/graphql/paginated.input";
+import {normalizePagination} from "../common/helpers/helpers";
 
 @Injectable()
 export class StudentsService {
@@ -13,9 +14,11 @@ export class StudentsService {
     {
         return this.model.create(student);
     }
-    findAll(paginated : paginatedInput = {limit:0, skip :0})
+    findAll(paginated : paginatedInput)
     {
-        return this.model.find().skip(paginated.skip).limit(paginated.limit);
+        const {limit,skip,sortBy} = normalizePagination(paginated);
+        console.log({"sortby": sortBy});
+        console.log('${sortBy.property}');
     }
     findOne(id:string){
         return this.model.findOne({"_id":id});

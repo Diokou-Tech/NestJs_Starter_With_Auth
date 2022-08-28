@@ -19,7 +19,7 @@ export class StudentsResolver {
         return result;
     }
     @Query(returns => [studentModel])
-    async findStudents(
+    async findStudents (
         @Args({name:"paginated", type:()=> paginatedInput, nullable:true}) paginated:paginatedInput
     )
     {
