@@ -34,7 +34,7 @@ export class AuthService {
                     throw new Error('Compte desactivé : Contacter l\'administrateur');
                 }
             }else{
-                throw new Error('Identiants incorrectes ou compte désactivé ')
+                throw new Error('Identiants incorrectes !')
             }
         }else{
             throw new Error('Adresse electronique introuvable !');

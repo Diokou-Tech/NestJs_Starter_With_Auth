@@ -17,6 +17,7 @@ export class ClassesResolver {
     @Mutation(returns => classesModel)
     async createClasse(@Args({name:"classeInput",type: ()=> classesInput }) classe:Iclasse)
     {
+        console.log(classe);
         const result = await this.classeService.insertOne(classe);
         return result;
     }
