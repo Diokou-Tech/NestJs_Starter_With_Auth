@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UsersService } from './users/users.service';
 import { UsersModule } from './users/users.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
@@ -11,7 +10,10 @@ import {GraphQLModule} from "@nestjs/graphql";
 import {ApolloDriver, ApolloDriverConfig} from "@nestjs/apollo";
 import { StudentsModule } from './students/students.module';
 import { ClassesModule } from './classes/classes.module';
+import { ImageModule } from './image/image.module';
 
+// @ts-ignore
+// @ts-ignore
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -29,6 +31,7 @@ import { ClassesModule } from './classes/classes.module';
     RolesModule,
     StudentsModule,
     ClassesModule,
+    ImageModule
   ],
   controllers: [AppController],
   providers: [AppService],
