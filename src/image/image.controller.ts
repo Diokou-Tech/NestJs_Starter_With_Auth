@@ -5,23 +5,15 @@ import { UpdateImageDto } from './dto/update-image.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
+import { customStorage} from '../common/helpers/helpers';
 
 @Controller('image')
 export class ImageController {
   constructor(private readonly imageService: ImageService) {}
 
   @Post()
-  @UseInterceptors(FileInterceptor('fileImage',{
-    storage: diskStorage(
-      {
-      destination: __dirname +'/src/__storage/images',
-      filename: (req,file,callback) => {
-      const randomName = "image-" + new Date().getMilliseconds();
-      callback(null,randomName+''+ extname(file.originalname))
-        }
-      }
-    )
-  }))
+  @UseInterceptors(FileInterceptor('fileImage', {storage : customStorage('images') })
+  )
   async create(@UploadedFile() file:Express.Multer.File ,@Body() createImageDto: CreateImageDto,@Res() res)
   {
     const data = { img_url: file.path, name: createImageDto.name };
