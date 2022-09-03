@@ -1,12 +1,17 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Res } from '@nestjs/common';
+import { ApiBasicAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Iuser } from './db/user.interface';
 import { UsersService } from './users.service';
 
+@ApiTags("school")
+@ApiBasicAuth()
 @Controller('users')
 export class UsersController {
     // constructor injects servicesUsers
     constructor(private readonly usersService: UsersService){}
     // functions of controllers
+    @ApiResponse({
+    })
     @Get()
     async findAll() {
         let result = await this.usersService.findAll();

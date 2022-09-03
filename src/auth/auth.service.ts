@@ -16,7 +16,7 @@ export class AuthService {
             const session = this.createToken(user);
             return session;
         }catch(error){
-            return error;
+            throw new Error(error.message);
         }
     }
    async login(login : Iuser) : Promise<Session>{
@@ -26,11 +26,15 @@ export class AuthService {
         if(user){
             let isMatch = await bcrypt.compare(login.password,user.password);
             console.log({isMatch});
-            if(isMatch && user.active){
-                const session = await this.createToken(user);
-                return session;
+            if(isMatch){
+                if(user.active){
+                    const session = await this.createToken(user);
+                    return session;
+                }else{
+                    throw new Error('Compte desactivé : Contacter l\'administrateur');
+                }
             }else{
-                throw new Error('Identiants incorrectes ou compte désactivé ')
+                throw new Error('Identiants incorrectes !')
             }
         }else{
             throw new Error('Adresse electronique introuvable !');

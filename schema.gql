@@ -1,0 +1,132 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type MessageModel {
+  message: String!
+  statut: Boolean!
+}
+
+type Mutation {
+  createClasse(classeInput: classesInput!): classesModel!
+  createStudent(studentInput: studentInput!): studentModel!
+  createUser(userInput: UserInput!): userModel!
+  deleteClasse(id: String!): MessageModel!
+  deleteOneUser(id: String!): MessageModel!
+  deleteStudent(id: String!): MessageModel!
+  login(loginInput: loginInput!): authModel!
+  register(registerInput: registerInput!): authModel!
+  updateClasse(classe: classesInput!, id: String!): MessageModel!
+  updateStudent(id: String!, student: studentInput!): MessageModel!
+  updateUser(id: String!, user: UserInput!): MessageModel!
+}
+
+type Query {
+  fetchOneRole(id: String!): RoleModel!
+  fetchRoles: [RoleModel!]!
+  fetchUser(idUser: String!): userModel!
+  fetchUsers: [userModel!]!
+  findClasse(id: String!): classesModel!
+  findClasses: [classesModel!]!
+  findStudent(id: String!): studentModel!
+  findStudents(paginated: paginatedInput): [studentModel!]!
+}
+
+type RoleModel {
+  createdAt: DateTime!
+  description: String!
+  id: ID!
+  name: String!
+  updatedAt: DateTime!
+}
+
+input UserInput {
+  email: String!
+  lastname: String!
+  name: String!
+  password: String!
+  role: String!
+}
+
+type authModel {
+  token: String!
+  user: userModel!
+}
+
+input classesInput {
+  code: String!
+  nomination: String!
+}
+
+type classesModel {
+  code: String
+  id: ID
+  nomination: String
+}
+
+input loginInput {
+  email: String!
+  password: String!
+}
+
+"""sort oder type !"""
+enum orderByDirection {
+  ASC
+  DSC
+}
+
+input orderbyInput {
+  direction: orderByDirection
+  property: String
+}
+
+input paginatedInput {
+  limit: Int
+  skip: Int
+  sortBy: orderbyInput
+}
+
+input registerInput {
+  email: String!
+  lastname: String!
+  name: String!
+  password: String!
+  role: String!
+}
+
+input studentInput {
+  classe_id: String
+  date_naiss: DateTime!
+  lastname: String!
+  matricule: String!
+  name: String!
+  sexe: String!
+}
+
+type studentModel {
+  classe_id: String
+  createdAt: DateTime
+  date_naiss: DateTime
+  id: ID
+  lastname: String
+  matricule: String
+  name: String
+  sexe: String
+  updatedAt: DateTime
+}
+
+type userModel {
+  active: Boolean!
+  date_naiss: DateTime!
+  email: String!
+  id: ID!
+  lastname: String!
+  name: String!
+  profil_img: String!
+  role: String!
+}
