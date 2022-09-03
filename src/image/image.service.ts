@@ -19,6 +19,10 @@ export class ImageService {
   findAll() {
     return this.model.find({});
   }
+  async countAll() {
+    const count = await this.model.find({}).count();
+    return "<b>Count </b>" +  count;
+  }
 
   findOne(id: number) {
     return `This action returns a #${id} image`;

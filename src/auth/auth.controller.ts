@@ -1,14 +1,16 @@
 import {Body, Controller, Post, Res} from '@nestjs/common';
+import { ApiBody, ApiSecurity, ApiTags } from '@nestjs/swagger';
 import { Iuser } from 'src/users/db/user.interface';
 import { AuthService } from './auth.service';
 import { Session } from './dto/session.type';
 
+@ApiTags('school')
+@ApiSecurity('basic')
 @Controller('auth')
 export class AuthController {
     constructor(private readonly authService:AuthService){}
 
     @Post('register')
-
     async register(@Body() user: Iuser,@Res() res) : Promise<any>
     {
         console.log(user);

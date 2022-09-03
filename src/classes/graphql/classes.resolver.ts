@@ -4,7 +4,9 @@ import {classesModel} from "./classes.model";
 import {classesInput} from "./classes.input";
 import {Iclasse} from "../db/classes.interface";
 import {MessageModel} from "../../common/graphql/message.model";
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('school')
 @Resolver()
 export class ClassesResolver {
     constructor(private readonly classeService:ClassesService) {}

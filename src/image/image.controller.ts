@@ -1,12 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UploadedFile, UseInterceptors, Res } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UploadedFile, UseInterceptors, Res, ParseFilePipe, MaxFileSizeValidator, FileTypeValidator } from '@nestjs/common';
 import { ImageService } from './image.service';
 import { CreateImageDto } from './dto/create-image.dto';
 import { UpdateImageDto } from './dto/update-image.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { diskStorage } from 'multer';
-import { extname } from 'path';
 import { customStorage} from '../common/helpers/helpers';
+import { ApiSecurity, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('school')
+@ApiSecurity('basic')
 @Controller('image')
 export class ImageController {
   constructor(private readonly imageService: ImageService) {}
@@ -14,9 +15,12 @@ export class ImageController {
   @Post()
   @UseInterceptors(FileInterceptor('fileImage', {storage : customStorage('images') })
   )
-  async create(@UploadedFile() file:Express.Multer.File ,@Body() createImageDto: CreateImageDto,@Res() res)
+  async create(@UploadedFile(new ParseFilePipe({
+    validators: []
+  })) file:Express.Multer.File ,@Body() createImageDto: CreateImageDto,@Res() res)
   {
     const data = { img_url: file.path, name: createImageDto.name };
+    // validations files
     const result = await this.imageService.create(data);
     res.send(result);
   }
@@ -24,6 +28,11 @@ export class ImageController {
   @Get()
   findAll() {
     return this.imageService.findAll();
+  }
+  
+  @Get("count")
+  countAll() {
+    return this.imageService.countAll();
   }
 
   @Get(':id')

@@ -12,10 +12,10 @@ export function customStorage(directory:String = 'fichiers')
      {
     const storage =  diskStorage(
           {
-              destination: __dirname +'/../../__storage/'+directory,
+              destination: __dirname +'/../../__storage/' + directory,
               filename: (req,file,callback) => {
-                  const randomName = "image-" + new Date().getMilliseconds();
-                  callback(null,randomName+''+ extname(file.originalname))
+                  const randomName ="upload-"  + Math.floor(Date.now() / 1000);
+                  callback(null,randomName + file.originalname)
               }
           }
         )

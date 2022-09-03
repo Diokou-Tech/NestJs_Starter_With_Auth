@@ -4,7 +4,9 @@ import {loginInput} from "./login.input";
 import {AuthService} from "../auth.service";
 import {registerInput} from "./register.input";
 import {Iuser} from "../../users/db/user.interface";
+import { ApiTags } from "@nestjs/swagger";
 
+@ApiTags('school')
 @Resolver()
 export  class AuthResolver {
     constructor(private readonly authService:AuthService) {}
